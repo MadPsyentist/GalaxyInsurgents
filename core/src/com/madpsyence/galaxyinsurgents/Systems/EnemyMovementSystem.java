@@ -40,8 +40,6 @@ public class EnemyMovementSystem extends IteratingSystem implements Listener<Str
         if(processEvent)
             super.update(deltaTime);
         processEvent = !processEvent;
-        if(rng.nextInt(100) == 2)
-            this.receive(new Signal<String>(), "hurpderp");
     }
 
 

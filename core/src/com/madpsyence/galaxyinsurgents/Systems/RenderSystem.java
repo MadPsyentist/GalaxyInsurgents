@@ -46,6 +46,7 @@ public class RenderSystem extends SortedIteratingSystem
     {
         rendercount = 0;
         camera.update();
+        System.out.println("cam pos x:" + camera.position.x + " y:" + camera.position.y);
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
         super.update(deltaTime);
@@ -59,8 +60,6 @@ public class RenderSystem extends SortedIteratingSystem
         TextureComponent tex = textureComponentMap.get(entity);
         TransformComponent pos = transformComponentMap.get(entity);
         DebugComponent db = dbMap.get(entity);
-
-        System.out.println(db.Name + db.ID + " renderCount " + rendercount);
 
         batch.draw(tex.Texture, pos.Position.x - tex.TextureOrigin.x,
                 pos.Position.y - tex.TextureOrigin.y,
