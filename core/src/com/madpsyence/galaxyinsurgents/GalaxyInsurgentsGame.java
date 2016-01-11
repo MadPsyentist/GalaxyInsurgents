@@ -45,16 +45,16 @@ public class GalaxyInsurgentsGame extends Game
 	private Engine InitializeEngine()
 	{
 		Engine eng = new Engine();
-		eng.addEntity(Player.Build(0.0f, -100.0f));
+		eng.addEntity(Player.Build(0.0f, -300.0f));
 
 		for(int j = 0; j < 5; j++)
-			eng.addEntity(Enemy.Build((150 * j) - 450, (150 * 5), EnemyType.Vinny));
+			eng.addEntity(Enemy.Build((50 * j) - 140, (50 * 5), EnemyType.Vinny));
 		EnemyType type = EnemyType.Minny;
 
 		for(int i = 1; i < 5; i++)
 		{
 			for(int j = 0; j < 5; j++)
-				eng.addEntity(Enemy.Build((150 * j) - 450, (150 * i), type));
+				eng.addEntity(Enemy.Build((50 * j) - 140, (50 * i), type));
 
 			if(i%2 == 0)
 				type = EnemyType.Tinny;

@@ -20,7 +20,7 @@ public class Player
 
         player.add(new TextureComponent(sprite, new Vector2(0.0f, 0.0f)));
         player.add(new TransformComponent(new Vector3(posX, posY, 0.0f),
-                new Vector2(1.0f, 1.0f), 0.0f));
+                new Vector2(0.45f, 0.45f), 0.0f));
         player.add(new MovementComponent());
         player.add(new PlayerComponent(300.0f));
         //Add our debug component

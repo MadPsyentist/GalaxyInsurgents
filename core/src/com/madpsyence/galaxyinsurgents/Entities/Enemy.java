@@ -66,7 +66,7 @@ public class Enemy
         enemy.add(debug);
         enemy.add(new TextureComponent(sprite, new Vector2(0.0f, 0.0f)));
         enemy.add(new TransformComponent(new Vector3(posX, posY, 0.0f),
-                new Vector2(1.0f, 1.0f), 0.0f));
+                new Vector2(0.35f, 0.35f), 0.0f));
         enemy.add(new MovementComponent(new Vector2(0.0f, 0.0f)));
         enemy.add(new EnemyComponent());
 

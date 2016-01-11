@@ -57,7 +57,7 @@ public class RenderSystem extends SortedIteratingSystem
                 pos.Position.y - tex.TextureOrigin.y,
                 tex.TextureOrigin.x, tex.TextureOrigin.y,
                 tex.Texture.getRegionWidth(), tex.Texture.getRegionHeight(),
-                pos.Scale.x, pos.Scale.y,
+                pos.Scale.x * CONST.PIXELS_TO_METERS, pos.Scale.y * CONST.PIXELS_TO_METERS,
                 MathUtils.radiansToDegrees * pos.Rotation);
     }
 }
