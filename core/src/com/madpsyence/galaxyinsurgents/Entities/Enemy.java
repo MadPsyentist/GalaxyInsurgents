@@ -64,7 +64,7 @@ public class Enemy
         Entity enemy = new Entity();
         //Add our debug component
         enemy.add(debug);
-        enemy.add(new TextureComponent(sprite, Vector2.Zero));
+        enemy.add(new TextureComponent(sprite, new Vector2(0.0f, 0.0f)));
         enemy.add(new TransformComponent(new Vector3(posX, posY, 0.0f),
                 new Vector2(1.0f, 1.0f), 0.0f));
         enemy.add(new MovementComponent(new Vector2(0.0f, 0.0f)));

@@ -20,7 +20,7 @@ public class Background
     {
         Entity background = new Entity();
         background.add(new TextureComponent(new TextureRegion(new Texture(Gdx.files.internal("Background.png"))),
-                Vector2.Zero));
+                new Vector2(0.0f, 0.0f)));
         background.add(new TransformComponent(new Vector3(posX,posY,10.0f), new Vector2(1.0f, 1.75f), 0.0f));
         //Add our debug component
         background.add(new DebugComponent("Background"));

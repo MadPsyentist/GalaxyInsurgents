@@ -25,10 +25,6 @@ public class RenderSystem extends SortedIteratingSystem
     SpriteBatch batch;
     OrthographicCamera camera;
 
-    Sprite theSprite;
-
-    int rendercount = 0;
-
     public RenderSystem(SpriteBatch batch)
     {
         super(Family.all(TransformComponent.class, TextureComponent.class).get(), new RenderComparator(), 50);
@@ -38,15 +34,12 @@ public class RenderSystem extends SortedIteratingSystem
         dbMap = ComponentMapper.getFor(DebugComponent.class);
         this.batch = batch;
         camera = new OrthographicCamera(CONST.FRUSTRUM_WIDTH, CONST.FRUSTRUM_HEIGHT);
-        theSprite = new Sprite();
     }
 
     @Override
     public void update(float deltaTime)
     {
-        rendercount = 0;
         camera.update();
-        System.out.println("cam pos x:" + camera.position.x + " y:" + camera.position.y);
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
         super.update(deltaTime);
@@ -56,7 +49,6 @@ public class RenderSystem extends SortedIteratingSystem
     @Override
     public void processEntity(Entity entity, float deltaTime)
     {
-        rendercount++;
         TextureComponent tex = textureComponentMap.get(entity);
         TransformComponent pos = transformComponentMap.get(entity);
         DebugComponent db = dbMap.get(entity);
