@@ -22,6 +22,7 @@ public class Player
         player.add(new TransformComponent(new Vector3(posX, posY, 0.0f),
                 new Vector2(0.45f, 0.45f), 0.0f));
         player.add(new MovementComponent());
+        player.add(new MovementClampComponent());
         player.add(new PlayerComponent(300.0f));
         //Add our debug component
         player.add(new DebugComponent("Player"));

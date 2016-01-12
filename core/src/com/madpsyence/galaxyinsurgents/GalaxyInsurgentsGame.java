@@ -1,16 +1,19 @@
 package com.madpsyence.galaxyinsurgents;
 
 import com.badlogic.ashley.core.Engine;
+import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.signals.Signal;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.madpsyence.galaxyinsurgents.Entities.Background;
+import com.madpsyence.galaxyinsurgents.Components.BoundsComponent;
 import com.madpsyence.galaxyinsurgents.Entities.Enemy;
+import com.madpsyence.galaxyinsurgents.Entities.GameStage;
 import com.madpsyence.galaxyinsurgents.Entities.Player;
 import com.madpsyence.galaxyinsurgents.Input.KeyboardInputProcessor;
 import com.madpsyence.galaxyinsurgents.Systems.DirectionalInputSystem;
+import com.madpsyence.galaxyinsurgents.Systems.MovementClampSystem;
 import com.madpsyence.galaxyinsurgents.Systems.MovementSystem;
 import com.madpsyence.galaxyinsurgents.Systems.RenderSystem;
 
@@ -44,6 +47,7 @@ public class GalaxyInsurgentsGame extends Game
 	private Engine InitializeEngine()
 	{
 		Engine eng = new Engine();
+		Entity placeHolder;
 		eng.addEntity(Player.Build(0.0f, -300.0f));
 
 		for(int j = 0; j < 5; j++)
@@ -59,7 +63,10 @@ public class GalaxyInsurgentsGame extends Game
 				type = EnemyType.Tinny;
 		}
 
-        eng.addEntity(Background.Build((CONST.FRUSTUM_WIDTH / 2) * -1, (CONST.FRUSTUM_HEIGHT / 2) * -1));
+        placeHolder = GameStage.Build((CONST.FRUSTUM_WIDTH / 2) * -1, (CONST.FRUSTUM_HEIGHT / 2) * -1);
+		eng.addEntity(placeHolder);
+
+		eng.addSystem(new MovementClampSystem(placeHolder.getComponent(BoundsComponent.class)));
 		eng.addSystem(new RenderSystem(new SpriteBatch()));
         eng.addSystem(new MovementSystem());
         //eng.addSystem(new EnemyMovementSystem());
