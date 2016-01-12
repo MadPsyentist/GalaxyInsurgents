@@ -26,7 +26,7 @@ public class EnemyMovementSystem extends IteratingSystem implements Listener<Str
     public EnemyMovementSystem()
     {
         super(Family.all(TransformComponent.class, MovementComponent.class,
-                EnemyComponent.class).get());
+                EnemyComponent.class).get(), 10);
 
         movementComponentMap = ComponentMapper.getFor(MovementComponent.class);
         processEvent = false;

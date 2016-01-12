@@ -5,7 +5,6 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.SortedIteratingSystem;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.madpsyence.galaxyinsurgents.CONST;
@@ -33,7 +32,7 @@ public class RenderSystem extends SortedIteratingSystem
         transformComponentMap = ComponentMapper.getFor(TransformComponent.class);
         dbMap = ComponentMapper.getFor(DebugComponent.class);
         this.batch = batch;
-        camera = new OrthographicCamera(CONST.FRUSTRUM_WIDTH, CONST.FRUSTRUM_HEIGHT);
+        camera = new OrthographicCamera(CONST.FRUSTUM_WIDTH, CONST.FRUSTUM_HEIGHT);
     }
 
     @Override

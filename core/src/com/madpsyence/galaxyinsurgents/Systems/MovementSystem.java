@@ -21,7 +21,7 @@ public class MovementSystem extends IteratingSystem
     public MovementSystem()
     {
         super(Family.all(MovementComponent.class, TransformComponent.class,
-                DebugComponent.class).get());
+                DebugComponent.class).get(), 10);
 
         movementComponentMap = ComponentMapper.getFor(MovementComponent.class);
         posComponentMap = ComponentMapper.getFor(TransformComponent.class);
