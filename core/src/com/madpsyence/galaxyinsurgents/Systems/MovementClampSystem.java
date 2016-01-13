@@ -18,11 +18,11 @@ public class MovementClampSystem extends IteratingSystem
 
     private Rectangle boundry;
 
-    public MovementClampSystem(BoundsComponent Boundry)
+    public MovementClampSystem(Entity StageEntity)
     {
-        super(Family.all(MovementClampComponent.class, TransformComponent.class).get());
+        super(Family.all(MovementClampComponent.class, TransformComponent.class).get(), 15);
         transMap = ComponentMapper.getFor(TransformComponent.class);
-        this.boundry = Boundry.Bound;
+        this.boundry = StageEntity.getComponent(BoundsComponent.class).Bound;
     }
 
     @Override
@@ -34,14 +34,14 @@ public class MovementClampSystem extends IteratingSystem
             System.out.println("Outside");
             if(tran.Position.x < boundry.getX())
                 tran.Position.x = boundry.getX();
-            else
+            else if(tran.Position.x > boundry.getX() + boundry.getWidth())
                 tran.Position.x = boundry.getX() + boundry.getWidth();
-/*
+
             if(tran.Position.y < boundry.getY())
                 tran.Position.y = boundry.getY();
-            else
+            else if(tran.Position.x > boundry.getY() + boundry.getHeight())
                tran.Position.y = boundry.getY() + boundry.getHeight();
-*/        }
+        }
         else
             System.out.println("Inside");
     }
