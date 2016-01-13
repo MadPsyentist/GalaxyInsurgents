@@ -16,6 +16,7 @@ import com.madpsyence.galaxyinsurgents.Systems.DirectionalInputSystem;
 import com.madpsyence.galaxyinsurgents.Systems.MovementClampSystem;
 import com.madpsyence.galaxyinsurgents.Systems.MovementSystem;
 import com.madpsyence.galaxyinsurgents.Systems.RenderSystem;
+import com.madpsyence.galaxyinsurgents.Systems.debugSystem;
 
 public class GalaxyInsurgentsGame extends Game
 {
@@ -65,10 +66,12 @@ public class GalaxyInsurgentsGame extends Game
 
         placeHolder = GameStage.Build((CONST.FRUSTUM_WIDTH / 2) * -1, (CONST.FRUSTUM_HEIGHT / 2) * -1);
 		eng.addEntity(placeHolder);
+        //eng.addEntity(Enemy.Build(0,(CONST.FRUSTUM_HEIGHT / 2)-25,EnemyType.UFO));
 
 		eng.addSystem(new MovementClampSystem(placeHolder.getComponent(BoundsComponent.class)));
 		eng.addSystem(new RenderSystem(new SpriteBatch()));
         eng.addSystem(new MovementSystem());
+        eng.addSystem(new debugSystem());
         //eng.addSystem(new EnemyMovementSystem());
 
         DirectionalInputSystem inSys = new DirectionalInputSystem();

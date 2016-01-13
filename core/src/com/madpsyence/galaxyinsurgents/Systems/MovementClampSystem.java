@@ -22,24 +22,27 @@ public class MovementClampSystem extends IteratingSystem
     {
         super(Family.all(MovementClampComponent.class, TransformComponent.class).get());
         transMap = ComponentMapper.getFor(TransformComponent.class);
-        this.boundry = Boundry.BoundingBox;
+        this.boundry = Boundry.Bound;
     }
 
     @Override
     public void processEntity(Entity entity, float deltaTime)
     {
         TransformComponent tran = transMap.get(entity);
-        if(boundry.contains(tran.Position.x, tran.Position.y))
+        if(!boundry.contains(tran.Position.x, tran.Position.y))
         {
+            System.out.println("Outside");
             if(tran.Position.x < boundry.getX())
                 tran.Position.x = boundry.getX();
             else
                 tran.Position.x = boundry.getX() + boundry.getWidth();
-
+/*
             if(tran.Position.y < boundry.getY())
                 tran.Position.y = boundry.getY();
             else
-                tran.Position.y = boundry.getY() + boundry.getHeight();
-        }
+               tran.Position.y = boundry.getY() + boundry.getHeight();
+*/        }
+        else
+            System.out.println("Inside");
     }
 }

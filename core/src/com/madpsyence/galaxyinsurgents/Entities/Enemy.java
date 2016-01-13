@@ -23,13 +23,17 @@ public class Enemy
     private static Texture TinnyTex;
     private static Texture MinnyTex;
     private static Texture VinnyTex;
+    private static Texture UFOTex;
+    private static TextureRegion sprite;
 
     private static void Initilize()
     {
         MinnyTex = new Texture(Gdx.files.internal("Alien1.png"));
         TinnyTex = new Texture(Gdx.files.internal("Alien2.png"));
         VinnyTex = new Texture(Gdx.files.internal("Alien3.png"));
+        UFOTex = new Texture(Gdx.files.internal("Ufo.png"));
         initilized = true;
+        sprite = new TextureRegion();
     }
 
 
@@ -54,12 +58,19 @@ public class Enemy
                 spriteSheet = VinnyTex;
                 debug = new DebugComponent("Vinny");
                 break;
+            case UFO:
+                spriteSheet = UFOTex;
+                debug = new DebugComponent("UFO");
+                break;
             default:
                 debug = new DebugComponent();
                 spriteSheet = new Texture(Gdx.files.internal("Alien1.png"));
         }
-        TextureRegion sprite = new TextureRegion(spriteSheet, 0, 0, spriteSheet.getWidth()/2,
-                spriteSheet.getHeight());
+        if(type != EnemyType.UFO)
+            sprite = new TextureRegion(spriteSheet, 0, 0, spriteSheet.getWidth()/2,
+                    spriteSheet.getHeight());
+        else
+            sprite = new TextureRegion(spriteSheet);
 
         Entity enemy = new Entity();
         //Add our debug component

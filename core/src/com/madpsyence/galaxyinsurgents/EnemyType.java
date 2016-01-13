@@ -5,5 +5,5 @@ package com.madpsyence.galaxyinsurgents;
  */
 public enum EnemyType
 {
-    Minny, Tinny, Vinny;
+    Minny, Tinny, Vinny, UFO;
 }

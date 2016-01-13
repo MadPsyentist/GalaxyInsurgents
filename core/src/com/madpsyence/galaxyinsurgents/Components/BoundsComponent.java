@@ -8,10 +8,10 @@ import com.badlogic.gdx.math.Rectangle;
  */
 public class BoundsComponent implements Component
 {
-    public Rectangle BoundingBox;
+    public Rectangle Bound;
 
-    public BoundsComponent(Rectangle BoundingBox)
+    public BoundsComponent(Rectangle Bound)
     {
-        this.BoundingBox = BoundingBox;
+        this.Bound = Bound;
     }
 }
