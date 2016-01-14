@@ -68,7 +68,7 @@ public class GalaxyInsurgentsGame extends Game
 		eng.addEntity(placeHolder);
         //eng.addEntity(Enemy.Build(0,(CONST.FRUSTUM_HEIGHT / 2)-25,EnemyType.UFO));
 
-		eng.addSystem(new MovementClampSystem(placeHolder.getComponent(BoundsComponent.class)));
+		eng.addSystem(new MovementClampSystem(placeHolder));
 		eng.addSystem(new RenderSystem(new SpriteBatch()));
         eng.addSystem(new MovementSystem());
         eng.addSystem(new debugSystem());
