@@ -5,6 +5,7 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
 import com.badlogic.gdx.math.Rectangle;
+import com.madpsyence.galaxyinsurgents.CONST;
 import com.madpsyence.galaxyinsurgents.Components.BoundsComponent;
 import com.madpsyence.galaxyinsurgents.Components.MovementClampComponent;
 import com.madpsyence.galaxyinsurgents.Components.TransformComponent;
@@ -20,7 +21,8 @@ public class MovementClampSystem extends IteratingSystem
 
     public MovementClampSystem(Entity StageEntity)
     {
-        super(Family.all(MovementClampComponent.class, TransformComponent.class).get(), 15);
+        super(Family.all(MovementClampComponent.class, TransformComponent.class).get(),
+                CONST.SYSTEM_PRIORITY_PHYSICS);
         transMap = ComponentMapper.getFor(TransformComponent.class);
         this.boundry = StageEntity.getComponent(BoundsComponent.class).Bound;
     }

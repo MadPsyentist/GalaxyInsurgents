@@ -26,7 +26,8 @@ public class RenderSystem extends SortedIteratingSystem
 
     public RenderSystem(SpriteBatch batch)
     {
-        super(Family.all(TransformComponent.class, TextureComponent.class).get(), new RenderComparator(), 50);
+        super(Family.all(TransformComponent.class, TextureComponent.class).get(), new RenderComparator(),
+                CONST.SYSTEM_PRIORITY_RENDERER);
 
         textureComponentMap = ComponentMapper.getFor(TextureComponent.class);
         transformComponentMap = ComponentMapper.getFor(TransformComponent.class);

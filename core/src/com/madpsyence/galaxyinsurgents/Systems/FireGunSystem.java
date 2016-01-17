@@ -5,6 +5,7 @@ import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
+import com.madpsyence.galaxyinsurgents.CONST;
 import com.madpsyence.galaxyinsurgents.Components.GunComponent;
 import com.madpsyence.galaxyinsurgents.Components.TransformComponent;
 import com.madpsyence.galaxyinsurgents.Entities.Bullet;
@@ -20,7 +21,7 @@ public class FireGunSystem extends IteratingSystem
 
     public FireGunSystem(Engine engine)
     {
-        super(Family.all(GunComponent.class, TransformComponent.class).get());
+        super(Family.all(GunComponent.class, TransformComponent.class).get(), CONST.SYSTEM_PRIORITY_LOGIC);
         this.engine = engine;
         gunMap = ComponentMapper.getFor(GunComponent.class);
         posMap = ComponentMapper.getFor(TransformComponent.class);
@@ -33,7 +34,7 @@ public class FireGunSystem extends IteratingSystem
         GunComponent gun = gunMap.get(entity);
         if(gun.PullTrigger && gun.CanFire)
         {
-            engine.addEntity(Bullet.BuildFromGun(pos.Position.x, pos.Position.y, gun));
+            engine.addEntity(Bullet.BuildFromGun(pos.Position, gun));
             gun.CanFire = false;
         }
         else

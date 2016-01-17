@@ -5,6 +5,7 @@ import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
+import com.madpsyence.galaxyinsurgents.CONST;
 import com.madpsyence.galaxyinsurgents.Components.GunComponent;
 import com.madpsyence.galaxyinsurgents.Components.TransformComponent;
 
@@ -17,7 +18,7 @@ public class ReloadGunsSystem extends IteratingSystem
 
     public ReloadGunsSystem(Engine engine)
     {
-        super(Family.all(GunComponent.class).get());
+        super(Family.all(GunComponent.class).get(), CONST.SYSTEM_PRIORITY_LOGIC);
         gunMap = ComponentMapper.getFor(GunComponent.class);
     }
 

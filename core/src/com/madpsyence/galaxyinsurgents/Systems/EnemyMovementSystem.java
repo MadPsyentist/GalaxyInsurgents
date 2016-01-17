@@ -6,6 +6,7 @@ import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.signals.Listener;
 import com.badlogic.ashley.signals.Signal;
 import com.badlogic.ashley.systems.IteratingSystem;
+import com.madpsyence.galaxyinsurgents.CONST;
 import com.madpsyence.galaxyinsurgents.Components.EnemyComponent;
 import com.madpsyence.galaxyinsurgents.Components.MovementComponent;
 import com.madpsyence.galaxyinsurgents.Components.TransformComponent;
@@ -26,7 +27,7 @@ public class EnemyMovementSystem extends IteratingSystem implements Listener<Str
     public EnemyMovementSystem()
     {
         super(Family.all(TransformComponent.class, MovementComponent.class,
-                EnemyComponent.class).get(), 10);
+                EnemyComponent.class).get(), CONST.SYSTEM_PRIORITY_MOVEMENT);
 
         movementComponentMap = ComponentMapper.getFor(MovementComponent.class);
         processEvent = false;
