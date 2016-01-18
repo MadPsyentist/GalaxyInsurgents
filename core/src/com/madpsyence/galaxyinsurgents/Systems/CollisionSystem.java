@@ -7,6 +7,7 @@ import com.badlogic.ashley.core.EntitySystem;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.signals.Signal;
 import com.badlogic.ashley.utils.ImmutableArray;
+import com.madpsyence.galaxyinsurgents.CONST;
 import com.madpsyence.galaxyinsurgents.Components.BoundsComponent;
 import com.madpsyence.galaxyinsurgents.Events.CollisionEvent;
 
@@ -26,6 +27,7 @@ public class CollisionSystem extends EntitySystem
     public CollisionSystem(Signal<CollisionEvent> CollisionEventSignal)
     {
         this.CollisionEventSignal = CollisionEventSignal;
+        this.priority = CONST.SYSTEM_PRIORITY_PHYSICS;
     }
 
     public void addedToEngine(Engine engine)
