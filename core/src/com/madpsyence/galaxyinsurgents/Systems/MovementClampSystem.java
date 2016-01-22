@@ -32,7 +32,7 @@ public class MovementClampSystem extends EntitySystem implements Listener<Collis
     private ComponentMapper<TransformComponent> transMap;
     private ComponentMapper<BoundsComponent>  boundsMap;
     private ImmutableArray<Entity> entities;
-    private Vector2 movement;
+    private float movement;
 
     public MovementClampSystem()
     {
@@ -53,10 +53,8 @@ public class MovementClampSystem extends EntitySystem implements Listener<Collis
         for (Entity e: entities)
         {
             TransformComponent pos = transMap.get(e);
-            pos.Position.x -= movement.x;
-            pos.Position.y -= movement.y;
+            pos.Position.x = movement;
         }
-        movement = new Vector2();
     }
 
     @Override
@@ -68,26 +66,16 @@ public class MovementClampSystem extends EntitySystem implements Listener<Collis
         if(bbA.Type == EntityType.Player && bbB.Type == EntityType.Wall)
         {
             if(bbA.Bound.getX() < bbB.Bound.getX() + bbB.Bound.getWidth())
-                movement.x = -(bbB.Bound.getX() + bbB.Bound.getWidth());
+                movement = (bbB.Bound.getX() + bbB.Bound.getWidth()) + 0.00001f;
             else if(bbA.Bound.getX() + bbA.Bound.getWidth() > bbB.Bound.getX())
-                movement.x = bbB.Bound.getX() - bbA.Bound.getWidth();
-
-            else if(bbA.Bound.getY() < bbB.Bound.getY() + bbB.Bound.getHeight())
-                movement.y = -(bbB.Bound.getY() + bbB.Bound.getHeight());
-            else if(bbA.Bound.getY() + bbA.Bound.getHeight() > bbB.Bound.getY())
-                movement.y = bbB.Bound.getX() - bbA.Bound.getHeight();
+                movement = (bbB.Bound.getX() - bbA.Bound.getWidth()) - 0.00001f;
         }
         else if(bbA.Type == EntityType.Wall && bbB.Type == EntityType.Player)
         {
             if(bbB.Bound.getX() < bbA.Bound.getX() + bbA.Bound.getWidth())
-                movement.x = -(bbA.Bound.getX() + bbA.Bound.getWidth());
+                movement = (bbA.Bound.getX() + bbA.Bound.getWidth()) + 0.00001f;
             else if(bbB.Bound.getX() + bbB.Bound.getWidth() > bbA.Bound.getX())
-                movement.x = bbB.Bound.getX() - bbA.Bound.getWidth();
-
-            else if(bbB.Bound.getY() < bbA.Bound.getY() + bbA.Bound.getHeight())
-                movement.y = -(bbA.Bound.getY() + bbA.Bound.getHeight());
-            else if(bbB.Bound.getY() + bbB.Bound.getHeight() > bbA.Bound.getY())
-                movement.y = bbA.Bound.getX() - bbA.Bound.getHeight();
+                movement = (bbA.Bound.getX() - bbB.Bound.getWidth()) - 0.00001f;
         }
     }
 }
