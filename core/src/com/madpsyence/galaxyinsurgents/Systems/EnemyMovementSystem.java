@@ -21,24 +21,31 @@ import java.util.Random;
  */
 public class EnemyMovementSystem extends IteratingSystem implements Listener<CollisionEvent>
 {
-    private ComponentMapper<MovementComponent> transMap;
+    private ComponentMapper<MovementComponent> movMap;
     private ComponentMapper<BoundsComponent>  boundsMap;
+    private ComponentMapper<TransformComponent> transMap;
+    private ComponentMapper<EnemyComponent> enemMap;
 
     private boolean previousProcessEvent;
     private boolean processEvent;
     private boolean flipMovement;
     private Random rng;
+    private float dropDistance;
+    private boolean drop;
 
     public EnemyMovementSystem()
     {
         super(Family.all(TransformComponent.class, MovementComponent.class,
                 EnemyComponent.class).get(), CONST.SYSTEM_PRIORITY_MOVEMENT);
 
-        transMap = ComponentMapper.getFor(MovementComponent.class);
+        transMap = ComponentMapper.getFor(TransformComponent.class);
         boundsMap = ComponentMapper.getFor(BoundsComponent.class);
+        movMap = ComponentMapper.getFor(MovementComponent.class);
+        enemMap = ComponentMapper.getFor(EnemyComponent.class);
+
         processEvent = false;
         flipMovement = false;
-
+        dropDistance = 50.0f;
         rng = new Random();
     }
 
@@ -46,19 +53,31 @@ public class EnemyMovementSystem extends IteratingSystem implements Listener<Col
     public void update(float deltaTime)
     {
         if(processEvent && !previousProcessEvent)
+        {
             flipMovement = !flipMovement;
+            drop = true;
+        }
         super.update(deltaTime);
         previousProcessEvent = processEvent;
         processEvent = false;
+        drop = false;
     }
 
 
     @Override
     public void processEntity(Entity entity, float deltaTime)
     {
-        MovementComponent mov = movementComponentMap.get(entity);
+        MovementComponent mov = movMap.get(entity);
+        TransformComponent tran = transMap.get(entity);
+        EnemyComponent enem = enemMap.get(entity);
 
-        mov.Velocity.x *= -1;
+        if(drop)
+            tran.Position.y -= dropDistance;
+
+        if(flipMovement)
+            mov.Velocity.x = -enem.Speed;
+        else
+            mov.Velocity.x = enem.Speed;
     }
 
     @Override

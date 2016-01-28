@@ -5,6 +5,7 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
 import com.madpsyence.galaxyinsurgents.CONST;
+import com.madpsyence.galaxyinsurgents.Components.BoundsComponent;
 import com.madpsyence.galaxyinsurgents.Components.DebugComponent;
 import com.madpsyence.galaxyinsurgents.Components.TransformComponent;
 import com.madpsyence.galaxyinsurgents.Components.MovementComponent;
@@ -17,7 +18,7 @@ public class MovementSystem extends IteratingSystem
 
     private ComponentMapper<MovementComponent> movementComponentMap;
     private ComponentMapper<TransformComponent> posComponentMap;
-    private ComponentMapper<DebugComponent> debugComponentMap;
+    private ComponentMapper<BoundsComponent> boundMap;
 
     public MovementSystem()
     {
@@ -26,7 +27,7 @@ public class MovementSystem extends IteratingSystem
 
         movementComponentMap = ComponentMapper.getFor(MovementComponent.class);
         posComponentMap = ComponentMapper.getFor(TransformComponent.class);
-        debugComponentMap = ComponentMapper.getFor(DebugComponent.class);
+        boundMap = ComponentMapper.getFor(BoundsComponent.class);
     }
 
     @Override
@@ -34,9 +35,11 @@ public class MovementSystem extends IteratingSystem
     {
         TransformComponent pos = posComponentMap.get(entity);
         MovementComponent mov = movementComponentMap.get(entity);
-        DebugComponent db = debugComponentMap.get(entity);
+        BoundsComponent bound = boundMap.get(entity);
 
         pos.Position.x += mov.Velocity.x * deltaTime;
         pos.Position.y += mov.Velocity.y * deltaTime;
+        bound.Bound.x = pos.Position.x;
+        bound.Bound.y = pos.Position.y;
     }
 }

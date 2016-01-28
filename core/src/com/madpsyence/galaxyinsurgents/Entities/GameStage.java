@@ -27,8 +27,6 @@ public class GameStage
         background.add(new TransformComponent(new Vector3(posX,posY,10.0f), new Vector2(0.6f, 0.6f), 0.0f));
         //Add our debug component
         background.add(new DebugComponent("Background"));
-        background.add(new BoundsComponent(new Rectangle(((CONST.FRUSTUM_WIDTH /2) * -1) + 10,
-                ((CONST.FRUSTUM_HEIGHT / 2) * -1) - 30, CONST.FRUSTUM_WIDTH - 50, CONST.FRUSTUM_HEIGHT + 100)));
         background.add(new StageComponent());
 
         return background;

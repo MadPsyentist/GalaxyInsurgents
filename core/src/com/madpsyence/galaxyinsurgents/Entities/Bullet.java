@@ -26,7 +26,7 @@ public class Bullet
         bullet.add(new TextureComponent(new TextureRegion(new Texture(Gdx.files.internal("MightyShot.png"))),
                 new Vector2(1.0f, 1.0f)));
 
-        bullet.add(new BoundsComponent(new Rectangle(posX, posY, 20, 20)));
+        bullet.add(new BoundsComponent(new Rectangle(posX, posY, 20, 20), EntityType.PlayerBullet));
         return bullet;
     }
 
@@ -43,7 +43,7 @@ public class Bullet
                 new Texture(Gdx.files.internal("MightyShot.png"))), new Vector2(1.0f, 1.0f)));
 
         bullet.add(new BoundsComponent(new Rectangle(EntityPosition.x + gun.BulletOrigin.x,
-                EntityPosition.y + gun.BulletOrigin.y, 20, 20)));
+                EntityPosition.y + gun.BulletOrigin.y, 20, 20), gun.BulletType));
 
         return bullet;
     }

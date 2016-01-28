@@ -11,6 +11,7 @@ import com.madpsyence.galaxyinsurgents.Components.BoundsComponent;
 import com.madpsyence.galaxyinsurgents.Entities.Enemy;
 import com.madpsyence.galaxyinsurgents.Entities.GameStage;
 import com.madpsyence.galaxyinsurgents.Entities.Player;
+import com.madpsyence.galaxyinsurgents.Events.CollisionEvent;
 import com.madpsyence.galaxyinsurgents.Input.KeyboardInputProcessor;
 import com.madpsyence.galaxyinsurgents.Systems.DirectionalInputSystem;
 import com.madpsyence.galaxyinsurgents.Systems.MovementClampSystem;
@@ -23,6 +24,7 @@ public class GalaxyInsurgentsGame extends Game
 	Engine engine;
 
     Signal<String> InputEventsSignal;
+	Signal<CollisionEvent> collisionEventSignal;
 
 	@Override
 	public void create ()
@@ -68,10 +70,9 @@ public class GalaxyInsurgentsGame extends Game
 		eng.addEntity(placeHolder);
         //eng.addEntity(Enemy.Build(0,(CONST.FRUSTUM_HEIGHT / 2)-25,EnemyType.UFO));
 
-		eng.addSystem(new MovementClampSystem(placeHolder));
+		eng.addSystem(new MovementClampSystem());
 		eng.addSystem(new RenderSystem(new SpriteBatch()));
         eng.addSystem(new MovementSystem());
-        eng.addSystem(new debugSystem());
         //eng.addSystem(new EnemyMovementSystem());
 
         DirectionalInputSystem inSys = new DirectionalInputSystem();
