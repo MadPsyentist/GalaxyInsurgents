@@ -8,7 +8,6 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.madpsyence.galaxyinsurgents.CONST;
-import com.madpsyence.galaxyinsurgents.Components.DebugComponent;
 import com.madpsyence.galaxyinsurgents.Components.TextureComponent;
 import com.madpsyence.galaxyinsurgents.Components.TransformComponent;
 
@@ -19,7 +18,6 @@ public class RenderSystem extends SortedIteratingSystem
 {
     private ComponentMapper<TextureComponent> textureComponentMap;
     private ComponentMapper<TransformComponent> transformComponentMap;
-    private ComponentMapper<DebugComponent> dbMap;
 
     SpriteBatch batch;
     OrthographicCamera camera;
@@ -31,7 +29,6 @@ public class RenderSystem extends SortedIteratingSystem
 
         textureComponentMap = ComponentMapper.getFor(TextureComponent.class);
         transformComponentMap = ComponentMapper.getFor(TransformComponent.class);
-        dbMap = ComponentMapper.getFor(DebugComponent.class);
         this.batch = batch;
         camera = new OrthographicCamera(CONST.FRUSTUM_WIDTH, CONST.FRUSTUM_HEIGHT);
     }
@@ -51,7 +48,6 @@ public class RenderSystem extends SortedIteratingSystem
     {
         TextureComponent tex = textureComponentMap.get(entity);
         TransformComponent pos = transformComponentMap.get(entity);
-        DebugComponent db = dbMap.get(entity);
 
         batch.draw(tex.Texture, pos.Position.x - tex.TextureOrigin.x,
                 pos.Position.y - tex.TextureOrigin.y,

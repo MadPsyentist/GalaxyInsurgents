@@ -4,6 +4,7 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.madpsyence.galaxyinsurgents.Components.*;
@@ -22,10 +23,8 @@ public class Player
         player.add(new TransformComponent(new Vector3(posX, posY, 0.0f),
                 new Vector2(0.45f, 0.45f), 0.0f));
         player.add(new MovementComponent());
-        player.add(new MovementClampComponent());
         player.add(new PlayerComponent(300.0f));
-        //Add our debug component
-        player.add(new DebugComponent("Player"));
+        player.add(new BoundsComponent(new Rectangle(posX, posY, 10, 10), EntityType.Player));
 
         return player;
     }

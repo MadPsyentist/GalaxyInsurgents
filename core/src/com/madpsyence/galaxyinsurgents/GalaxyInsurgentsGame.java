@@ -11,9 +11,13 @@ import com.madpsyence.galaxyinsurgents.Components.BoundsComponent;
 import com.madpsyence.galaxyinsurgents.Entities.Enemy;
 import com.madpsyence.galaxyinsurgents.Entities.GameStage;
 import com.madpsyence.galaxyinsurgents.Entities.Player;
+import com.madpsyence.galaxyinsurgents.Entities.Wall;
 import com.madpsyence.galaxyinsurgents.Events.CollisionEvent;
 import com.madpsyence.galaxyinsurgents.Input.KeyboardInputProcessor;
+import com.madpsyence.galaxyinsurgents.Systems.CollisionSystem;
 import com.madpsyence.galaxyinsurgents.Systems.DirectionalInputSystem;
+import com.madpsyence.galaxyinsurgents.Systems.EnemyMovementSystem;
+import com.madpsyence.galaxyinsurgents.Systems.MoveBoundsSystem;
 import com.madpsyence.galaxyinsurgents.Systems.MovementClampSystem;
 import com.madpsyence.galaxyinsurgents.Systems.MovementSystem;
 import com.madpsyence.galaxyinsurgents.Systems.RenderSystem;
@@ -45,6 +49,7 @@ public class GalaxyInsurgentsGame extends Game
     private void InitializeEventSignals()
     {
         InputEventsSignal = new Signal<String>();
+		collisionEventSignal = new Signal<CollisionEvent>();
     }
 
 	private Engine InitializeEngine()
@@ -68,12 +73,23 @@ public class GalaxyInsurgentsGame extends Game
 
         placeHolder = GameStage.Build((CONST.FRUSTUM_WIDTH / 2) * -1, (CONST.FRUSTUM_HEIGHT / 2) * -1);
 		eng.addEntity(placeHolder);
+		//eng.addEntity(Wall.Build((CONST.SCREEN_WIDTH/2)-10, CONST.SCREEN_HEIGHT/2, 10, CONST.SCREEN_HEIGHT));
+		//eng.addEntity(Wall.Build(CONST.SCREEN_WIDTH/2, CONST.SCREEN_HEIGHT/2, 10, CONST.SCREEN_HEIGHT));
         //eng.addEntity(Enemy.Build(0,(CONST.FRUSTUM_HEIGHT / 2)-25,EnemyType.UFO));
 
 		eng.addSystem(new MovementClampSystem());
 		eng.addSystem(new RenderSystem(new SpriteBatch()));
         eng.addSystem(new MovementSystem());
-        //eng.addSystem(new EnemyMovementSystem());
+
+		DirectionalInputSystem dirSys = new DirectionalInputSystem();
+		InputEventsSignal.add(dirSys);
+		eng.addSystem(dirSys);
+
+		EnemyMovementSystem enemMov = new EnemyMovementSystem();
+		collisionEventSignal.add(enemMov);
+		eng.addSystem(enemMov);
+		eng.addSystem(new CollisionSystem(collisionEventSignal));
+		eng.addSystem(new MoveBoundsSystem());
 
         DirectionalInputSystem inSys = new DirectionalInputSystem();
         InputEventsSignal.add(inSys);

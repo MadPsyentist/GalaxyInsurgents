@@ -7,22 +7,13 @@ import com.badlogic.ashley.core.EntitySystem;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.signals.Listener;
 import com.badlogic.ashley.signals.Signal;
-import com.badlogic.ashley.systems.IteratingSystem;
 import com.badlogic.ashley.utils.ImmutableArray;
-import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Vector2;
 import com.madpsyence.galaxyinsurgents.CONST;
 import com.madpsyence.galaxyinsurgents.Components.BoundsComponent;
-import com.madpsyence.galaxyinsurgents.Components.MovementClampComponent;
 import com.madpsyence.galaxyinsurgents.Components.PlayerComponent;
 import com.madpsyence.galaxyinsurgents.Components.TransformComponent;
 import com.madpsyence.galaxyinsurgents.Entities.EntityType;
 import com.madpsyence.galaxyinsurgents.Events.CollisionEvent;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Queue;
-import java.util.concurrent.ArrayBlockingQueue;
 
 /**
  * Created by Lachie on 12/1/2016.
@@ -69,6 +60,7 @@ public class MovementClampSystem extends EntitySystem implements Listener<Collis
                 movement = (bbB.Bound.getX() + bbB.Bound.getWidth()) + 0.00001f;
             else if(bbA.Bound.getX() + bbA.Bound.getWidth() > bbB.Bound.getX())
                 movement = (bbB.Bound.getX() - bbA.Bound.getWidth()) - 0.00001f;
+            System.out.println("bing dang ow");
         }
         else if(bbA.Type == EntityType.Wall && bbB.Type == EntityType.Player)
         {
@@ -76,6 +68,7 @@ public class MovementClampSystem extends EntitySystem implements Listener<Collis
                 movement = (bbA.Bound.getX() + bbA.Bound.getWidth()) + 0.00001f;
             else if(bbB.Bound.getX() + bbB.Bound.getWidth() > bbA.Bound.getX())
                 movement = (bbA.Bound.getX() - bbB.Bound.getWidth()) - 0.00001f;
+            System.out.println("sum ting wong");
         }
     }
 }

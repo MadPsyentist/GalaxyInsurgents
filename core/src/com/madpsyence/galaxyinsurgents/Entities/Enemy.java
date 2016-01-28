@@ -6,7 +6,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
-import com.madpsyence.galaxyinsurgents.Components.DebugComponent;
 import com.madpsyence.galaxyinsurgents.Components.EnemyComponent;
 import com.madpsyence.galaxyinsurgents.Components.MovementComponent;
 import com.madpsyence.galaxyinsurgents.Components.TextureComponent;
@@ -43,27 +42,21 @@ public class Enemy
             Initilize();
 
         Texture spriteSheet;
-        DebugComponent debug;
         switch (type)
         {
             case Minny:
                 spriteSheet = MinnyTex;
-                debug = new DebugComponent("Minny");
                 break;
             case Tinny:
                 spriteSheet = TinnyTex;
-                debug = new DebugComponent("Tinny");
                 break;
             case Vinny:
                 spriteSheet = VinnyTex;
-                debug = new DebugComponent("Vinny");
                 break;
             case UFO:
                 spriteSheet = UFOTex;
-                debug = new DebugComponent("UFO");
                 break;
             default:
-                debug = new DebugComponent();
                 spriteSheet = new Texture(Gdx.files.internal("Alien1.png"));
         }
         if(type != EnemyType.UFO)
@@ -73,8 +66,6 @@ public class Enemy
             sprite = new TextureRegion(spriteSheet);
 
         Entity enemy = new Entity();
-        //Add our debug component
-        enemy.add(debug);
         enemy.add(new TextureComponent(sprite, new Vector2(0.0f, 0.0f)));
         enemy.add(new TransformComponent(new Vector3(posX, posY, 0.0f),
                 new Vector2(0.35f, 0.35f), 0.0f));

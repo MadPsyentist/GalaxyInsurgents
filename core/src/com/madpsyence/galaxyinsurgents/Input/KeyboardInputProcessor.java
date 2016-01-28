@@ -44,13 +44,10 @@ public class KeyboardInputProcessor implements InputProcessor
         if(keycode == Input.Keys.LEFT)
         {
             InputEventsSignal.dispatch(InputEvents.StopMove_Left);
-            System.out.println("Left released");
             return true;
         }
-        if(keycode == Input.Keys.RIGHT)
-        {
+        if(keycode == Input.Keys.RIGHT) {
             InputEventsSignal.dispatch(InputEvents.StopMove_Right);
-            System.out.println("Right released");
             return true;
         }
         if(keycode == Input.Keys.SPACE)
