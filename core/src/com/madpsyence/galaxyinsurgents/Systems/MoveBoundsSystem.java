@@ -7,6 +7,7 @@ import com.badlogic.ashley.systems.IteratingSystem;
 import com.madpsyence.galaxyinsurgents.Components.BoundsComponent;
 import com.madpsyence.galaxyinsurgents.Components.MovementComponent;
 import com.madpsyence.galaxyinsurgents.Components.TransformComponent;
+import com.madpsyence.galaxyinsurgents.Entities.EntityType;
 
 /**
  * Created by Lachie on 15/1/2016.
@@ -21,7 +22,6 @@ public class MoveBoundsSystem extends IteratingSystem
         super(Family.all(TransformComponent.class, MovementComponent.class, BoundsComponent.class).get());
         posMap = ComponentMapper.getFor(TransformComponent.class);
         boundsMap = ComponentMapper.getFor(BoundsComponent.class);
-
     }
 
     public void processEntity(Entity entity, float deltaTime)

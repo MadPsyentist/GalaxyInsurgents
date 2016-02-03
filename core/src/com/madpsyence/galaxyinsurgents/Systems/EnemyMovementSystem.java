@@ -29,7 +29,6 @@ public class EnemyMovementSystem extends IteratingSystem implements Listener<Col
     private boolean previousProcessEvent;
     private boolean processEvent;
     private boolean flipMovement;
-    private Random rng;
     private float dropDistance;
     private boolean drop;
 
@@ -45,8 +44,7 @@ public class EnemyMovementSystem extends IteratingSystem implements Listener<Col
 
         processEvent = false;
         flipMovement = false;
-        dropDistance = 50.0f;
-        rng = new Random();
+        dropDistance = 25.0f;
     }
 
     @Override
@@ -88,8 +86,6 @@ public class EnemyMovementSystem extends IteratingSystem implements Listener<Col
 
         if(bbA.Type == EntityType.Enemy && bbB.Type == EntityType.Wall ||
                 bbB.Type == EntityType.Enemy && bbA.Type == EntityType.Wall)
-        {
             processEvent = true;
-        }
     }
 }

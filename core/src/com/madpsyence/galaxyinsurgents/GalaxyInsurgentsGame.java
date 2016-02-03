@@ -7,21 +7,18 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.madpsyence.galaxyinsurgents.Components.BoundsComponent;
-import com.madpsyence.galaxyinsurgents.Entities.Enemy;
-import com.madpsyence.galaxyinsurgents.Entities.GameStage;
-import com.madpsyence.galaxyinsurgents.Entities.Player;
-import com.madpsyence.galaxyinsurgents.Entities.Wall;
+import com.madpsyence.galaxyinsurgents.Entities.*;
 import com.madpsyence.galaxyinsurgents.Events.CollisionEvent;
 import com.madpsyence.galaxyinsurgents.Input.KeyboardInputProcessor;
+import com.madpsyence.galaxyinsurgents.Systems.CollisionReportSystem;
 import com.madpsyence.galaxyinsurgents.Systems.CollisionSystem;
+import com.madpsyence.galaxyinsurgents.Systems.DebugRender;
 import com.madpsyence.galaxyinsurgents.Systems.DirectionalInputSystem;
 import com.madpsyence.galaxyinsurgents.Systems.EnemyMovementSystem;
 import com.madpsyence.galaxyinsurgents.Systems.MoveBoundsSystem;
 import com.madpsyence.galaxyinsurgents.Systems.MovementClampSystem;
 import com.madpsyence.galaxyinsurgents.Systems.MovementSystem;
 import com.madpsyence.galaxyinsurgents.Systems.RenderSystem;
-import com.madpsyence.galaxyinsurgents.Systems.debugSystem;
 
 public class GalaxyInsurgentsGame extends Game
 {
@@ -70,11 +67,8 @@ public class GalaxyInsurgentsGame extends Game
 			if(i%2 == 0)
 				type = EnemyType.Tinny;
 		}
-
-        placeHolder = GameStage.Build((CONST.FRUSTUM_WIDTH / 2) * -1, (CONST.FRUSTUM_HEIGHT / 2) * -1);
-		eng.addEntity(placeHolder);
-		//eng.addEntity(Wall.Build((CONST.SCREEN_WIDTH/2)-10, CONST.SCREEN_HEIGHT/2, 10, CONST.SCREEN_HEIGHT));
-		//eng.addEntity(Wall.Build(CONST.SCREEN_WIDTH/2, CONST.SCREEN_HEIGHT/2, 10, CONST.SCREEN_HEIGHT));
+		eng.addEntity(Wall.Build(-250, -319, 20, 640));
+		eng.addEntity(Wall.Build(230, -319, 20, 640));
         //eng.addEntity(Enemy.Build(0,(CONST.FRUSTUM_HEIGHT / 2)-25,EnemyType.UFO));
 
 		eng.addSystem(new MovementClampSystem());
@@ -90,10 +84,12 @@ public class GalaxyInsurgentsGame extends Game
 		eng.addSystem(enemMov);
 		eng.addSystem(new CollisionSystem(collisionEventSignal));
 		eng.addSystem(new MoveBoundsSystem());
+		eng.addSystem(new DebugRender());
 
         DirectionalInputSystem inSys = new DirectionalInputSystem();
         InputEventsSignal.add(inSys);
         eng.addSystem(inSys);
+		collisionEventSignal.add(new CollisionReportSystem());
 
 		return eng;
 	}

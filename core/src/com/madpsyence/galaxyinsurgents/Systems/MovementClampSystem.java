@@ -41,10 +41,14 @@ public class MovementClampSystem extends EntitySystem implements Listener<Collis
     @Override
     public void update( float deltaTime)
     {
-        for (Entity e: entities)
+        if(movement != 0.0f)
         {
-            TransformComponent pos = transMap.get(e);
-            pos.Position.x = movement;
+            for (Entity e : entities)
+            {
+                TransformComponent pos = transMap.get(e);
+                pos.Position.x = movement;
+            }
+            movement = 0.0f;
         }
     }
 
@@ -57,18 +61,18 @@ public class MovementClampSystem extends EntitySystem implements Listener<Collis
         if(bbA.Type == EntityType.Player && bbB.Type == EntityType.Wall)
         {
             if(bbA.Bound.getX() < bbB.Bound.getX() + bbB.Bound.getWidth())
-                movement = (bbB.Bound.getX() + bbB.Bound.getWidth()) + 0.00001f;
+                movement = (bbB.Bound.getX() + bbB.Bound.getWidth()) + 0.0001f;
             else if(bbA.Bound.getX() + bbA.Bound.getWidth() > bbB.Bound.getX())
-                movement = (bbB.Bound.getX() - bbA.Bound.getWidth()) - 0.00001f;
-            System.out.println("bing dang ow");
+                movement = (bbB.Bound.getX() - bbA.Bound.getWidth()) - 0.0001f;
+            System.out.println("player wall collision");
         }
         else if(bbA.Type == EntityType.Wall && bbB.Type == EntityType.Player)
         {
             if(bbB.Bound.getX() < bbA.Bound.getX() + bbA.Bound.getWidth())
-                movement = (bbA.Bound.getX() + bbA.Bound.getWidth()) + 0.00001f;
+                movement = (bbA.Bound.getX() + bbA.Bound.getWidth()) + 0.0001f;
             else if(bbB.Bound.getX() + bbB.Bound.getWidth() > bbA.Bound.getX())
-                movement = (bbA.Bound.getX() - bbB.Bound.getWidth()) - 0.00001f;
-            System.out.println("sum ting wong");
+                movement = (bbA.Bound.getX() - bbB.Bound.getWidth()) - 0.0001f;
+            System.out.println("player wall collision");
         }
     }
 }

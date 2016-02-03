@@ -4,8 +4,10 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
+import com.madpsyence.galaxyinsurgents.Components.BoundsComponent;
 import com.madpsyence.galaxyinsurgents.Components.EnemyComponent;
 import com.madpsyence.galaxyinsurgents.Components.MovementComponent;
 import com.madpsyence.galaxyinsurgents.Components.TextureComponent;
@@ -71,6 +73,7 @@ public class Enemy
                 new Vector2(0.35f, 0.35f), 0.0f));
         enemy.add(new MovementComponent(new Vector2(0.0f, 0.0f)));
         enemy.add(new EnemyComponent());
+        enemy.add(new BoundsComponent(new Rectangle(0, 0, 20.0f, 20.0f), EntityType.Enemy));
 
         return enemy;
     }
