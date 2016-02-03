@@ -60,19 +60,25 @@ public class MovementClampSystem extends EntitySystem implements Listener<Collis
 
         if(bbA.Type == EntityType.Player && bbB.Type == EntityType.Wall)
         {
-            if(bbA.Bound.getX() < bbB.Bound.getX() + bbB.Bound.getWidth())
-                movement = (bbB.Bound.getX() + bbB.Bound.getWidth()) + 0.0001f;
-            else if(bbA.Bound.getX() + bbA.Bound.getWidth() > bbB.Bound.getX())
-                movement = (bbB.Bound.getX() - bbA.Bound.getWidth()) - 0.0001f;
-            System.out.println("player wall collision");
+            if(bbB.Bound.getX() < 0) {
+                movement = bbB.Bound.getX() + bbB.Bound.getWidth();
+                System.out.println("left wall");
+            }
+            else {
+                movement = bbB.Bound.getX() - bbA.Bound.getWidth();
+                System.out.println("right wall");
+            }
         }
         else if(bbA.Type == EntityType.Wall && bbB.Type == EntityType.Player)
         {
-            if(bbB.Bound.getX() < bbA.Bound.getX() + bbA.Bound.getWidth())
-                movement = (bbA.Bound.getX() + bbA.Bound.getWidth()) + 0.0001f;
-            else if(bbB.Bound.getX() + bbB.Bound.getWidth() > bbA.Bound.getX())
-                movement = (bbA.Bound.getX() - bbB.Bound.getWidth()) - 0.0001f;
-            System.out.println("player wall collision");
+            if(bbA.Bound.getX() < 0) {
+                movement = bbA.Bound.getX() + bbA.Bound.getWidth();
+                System.out.println("left wall");
+            }
+            else {
+                movement = bbB.Bound.getWidth() - bbA.Bound.getX();
+                System.out.println("right wall");
+            }
         }
     }
 }

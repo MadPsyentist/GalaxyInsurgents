@@ -4,6 +4,7 @@ import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
+import com.madpsyence.galaxyinsurgents.CONST;
 import com.madpsyence.galaxyinsurgents.Components.BoundsComponent;
 import com.madpsyence.galaxyinsurgents.Components.MovementComponent;
 import com.madpsyence.galaxyinsurgents.Components.TransformComponent;
@@ -19,7 +20,7 @@ public class MoveBoundsSystem extends IteratingSystem
 
     public MoveBoundsSystem()
     {
-        super(Family.all(TransformComponent.class, MovementComponent.class, BoundsComponent.class).get());
+        super(Family.all(TransformComponent.class, MovementComponent.class, BoundsComponent.class).get(), CONST.SYSTEM_PRIORITY_PHYSICS + CONST.PRIMARY_SYSTEM);
         posMap = ComponentMapper.getFor(TransformComponent.class);
         boundsMap = ComponentMapper.getFor(BoundsComponent.class);
     }

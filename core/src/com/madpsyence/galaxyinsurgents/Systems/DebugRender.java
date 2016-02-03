@@ -21,7 +21,7 @@ public class DebugRender extends IteratingSystem
 
     public DebugRender()
     {
-        super(Family.all(BoundsComponent.class).get(), CONST.SYSTEM_PRIORITY_RENDERER - CONST.SECONDARY_SYSTEM);
+        super(Family.all(BoundsComponent.class).get(), CONST.SYSTEM_PRIORITY_RENDERER + CONST.SECONDARY_SYSTEM);
         cam = new OrthographicCamera(CONST.FRUSTUM_WIDTH, CONST.FRUSTUM_HEIGHT);
         boundsMap = ComponentMapper.getFor(BoundsComponent.class);
         shapeRenderer = new ShapeRenderer();

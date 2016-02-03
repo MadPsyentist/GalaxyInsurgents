@@ -2,6 +2,7 @@ package com.madpsyence.galaxyinsurgents;
 
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
+import com.badlogic.ashley.core.EntitySystem;
 import com.badlogic.ashley.signals.Signal;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
@@ -52,7 +53,6 @@ public class GalaxyInsurgentsGame extends Game
 	private Engine InitializeEngine()
 	{
 		Engine eng = new Engine();
-		Entity placeHolder;
 		eng.addEntity(Player.Build(0.0f, -300.0f));
 
 		for(int j = 0; j < 5; j++)
@@ -67,11 +67,13 @@ public class GalaxyInsurgentsGame extends Game
 			if(i%2 == 0)
 				type = EnemyType.Tinny;
 		}
-		eng.addEntity(Wall.Build(-250, -319, 20, 640));
-		eng.addEntity(Wall.Build(230, -319, 20, 640));
+		eng.addEntity(Wall.Build(-280, -319, 50, 640));
+		eng.addEntity(Wall.Build(230, -319, 50, 640));
         //eng.addEntity(Enemy.Build(0,(CONST.FRUSTUM_HEIGHT / 2)-25,EnemyType.UFO));
 
-		eng.addSystem(new MovementClampSystem());
+		MovementClampSystem placeHolderSystem = new MovementClampSystem();
+		collisionEventSignal.add(placeHolderSystem);
+		eng.addSystem(placeHolderSystem);
 		eng.addSystem(new RenderSystem(new SpriteBatch()));
         eng.addSystem(new MovementSystem());
 
@@ -89,7 +91,7 @@ public class GalaxyInsurgentsGame extends Game
         DirectionalInputSystem inSys = new DirectionalInputSystem();
         InputEventsSignal.add(inSys);
         eng.addSystem(inSys);
-		collisionEventSignal.add(new CollisionReportSystem());
+		//collisionEventSignal.add(new CollisionReportSystem());
 
 		return eng;
 	}

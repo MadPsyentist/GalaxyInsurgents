@@ -18,6 +18,6 @@ public class CONST
     public static final int SYSTEM_PRIORITY_RENDERER = 5000;
 
     public static final int PRIMARY_SYSTEM = -250;
-    public static final int SECONDARY_SYSTEM = -100;
-    public static final int TERTIRY_SYSTEM = -50;
+    public static final int SECONDARY_SYSTEM = 1;
+    public static final int TERTIRY_SYSTEM = 250;
 }

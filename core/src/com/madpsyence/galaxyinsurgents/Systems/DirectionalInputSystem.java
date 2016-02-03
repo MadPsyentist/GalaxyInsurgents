@@ -24,7 +24,7 @@ public class DirectionalInputSystem extends IteratingSystem implements Listener<
 
     public DirectionalInputSystem()
     {
-        super(Family.all(MovementComponent.class, PlayerComponent.class).get(), CONST.SYSTEM_PRIORITY_INPUT);
+        super(Family.all(MovementComponent.class, PlayerComponent.class).get(), CONST.SYSTEM_PRIORITY_INPUT + CONST.TERTIRY_SYSTEM);
 
         movementComponentMap = ComponentMapper.getFor(MovementComponent.class);
         playerComponentMap = ComponentMapper.getFor(PlayerComponent.class);
