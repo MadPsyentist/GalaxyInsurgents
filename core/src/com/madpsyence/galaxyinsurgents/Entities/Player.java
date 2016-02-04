@@ -14,6 +14,7 @@ import com.madpsyence.galaxyinsurgents.Components.*;
  */
 public class Player
 {
+    public static float Scale = 0.45f;
     public static Entity Build(float posX, float posY)
     {
         TextureRegion sprite = new TextureRegion(new Texture(Gdx.files.internal("Ship.png")));
@@ -21,10 +22,14 @@ public class Player
 
         player.add(new TextureComponent(sprite, new Vector2(0.0f, 0.0f)));
         player.add(new TransformComponent(new Vector3(posX, posY, 0.0f),
-                new Vector2(0.45f, 0.45f), 0.0f));
+                new Vector2(Scale, Scale), 0.0f));
+        player.add(new GunComponent(new Vector2(0.0f, 600.0f),
+                new Vector2((sprite.getRegionWidth()*Scale)/2,(sprite.getRegionHeight()*Scale)/2),
+                0.8f, EntityType.PlayerBullet));
         player.add(new MovementComponent());
         player.add(new PlayerComponent(300.0f));
-        player.add(new BoundsComponent(new Rectangle(posX, posY, 10, 10), EntityType.Player));
+        player.add(new BoundsComponent(new Rectangle(posX, posY, sprite.getRegionWidth()*Scale,
+                sprite.getRegionHeight()*Scale), EntityType.Player));
 
         return player;
     }

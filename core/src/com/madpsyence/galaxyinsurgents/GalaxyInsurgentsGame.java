@@ -16,9 +16,12 @@ import com.madpsyence.galaxyinsurgents.Systems.CollisionSystem;
 import com.madpsyence.galaxyinsurgents.Systems.DebugRender;
 import com.madpsyence.galaxyinsurgents.Systems.DirectionalInputSystem;
 import com.madpsyence.galaxyinsurgents.Systems.EnemyMovementSystem;
+import com.madpsyence.galaxyinsurgents.Systems.FireGunSystem;
 import com.madpsyence.galaxyinsurgents.Systems.MoveBoundsSystem;
 import com.madpsyence.galaxyinsurgents.Systems.MovementClampSystem;
 import com.madpsyence.galaxyinsurgents.Systems.MovementSystem;
+import com.madpsyence.galaxyinsurgents.Systems.PlayerFireSystem;
+import com.madpsyence.galaxyinsurgents.Systems.ReloadGunsSystem;
 import com.madpsyence.galaxyinsurgents.Systems.RenderSystem;
 
 public class GalaxyInsurgentsGame extends Game
@@ -69,7 +72,6 @@ public class GalaxyInsurgentsGame extends Game
 		}
 		eng.addEntity(Wall.Build(-280, -319, 50, 640));
 		eng.addEntity(Wall.Build(230, -319, 50, 640));
-        //eng.addEntity(Enemy.Build(0,(CONST.FRUSTUM_HEIGHT / 2)-25,EnemyType.UFO));
 
 		MovementClampSystem placeHolderSystem = new MovementClampSystem();
 		collisionEventSignal.add(placeHolderSystem);
@@ -86,12 +88,16 @@ public class GalaxyInsurgentsGame extends Game
 		eng.addSystem(enemMov);
 		eng.addSystem(new CollisionSystem(collisionEventSignal));
 		eng.addSystem(new MoveBoundsSystem());
+		eng.addSystem(new FireGunSystem(eng));
+		eng.addSystem(new ReloadGunsSystem());
+		PlayerFireSystem pfs = new PlayerFireSystem();
+		InputEventsSignal.add(pfs);
+		eng.addSystem(pfs);
 		eng.addSystem(new DebugRender());
 
         DirectionalInputSystem inSys = new DirectionalInputSystem();
         InputEventsSignal.add(inSys);
         eng.addSystem(inSys);
-		//collisionEventSignal.add(new CollisionReportSystem());
 
 		return eng;
 	}

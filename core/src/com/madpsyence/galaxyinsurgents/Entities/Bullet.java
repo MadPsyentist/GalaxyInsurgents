@@ -18,32 +18,38 @@ import com.madpsyence.galaxyinsurgents.Components.TransformComponent;
  */
 public class Bullet
 {
+    public static float Scale = 0.3f;
     public static Entity Build(float posX, float posY)
     {
         Entity bullet = new Entity();
+        TextureRegion sprite = new TextureRegion(
+                new Texture(Gdx.files.internal("MightyShot.png")));
         bullet.add(new TransformComponent(posX, posY));
         bullet.add(new MovementComponent());
-        bullet.add(new TextureComponent(new TextureRegion(new Texture(Gdx.files.internal("MightyShot.png"))),
-                new Vector2(1.0f, 1.0f)));
+        bullet.add(new TextureComponent(sprite,
+                new Vector2(Scale, Scale)));
 
-        bullet.add(new BoundsComponent(new Rectangle(posX, posY, 20, 20), EntityType.PlayerBullet));
+        bullet.add(new BoundsComponent(new Rectangle(posX, posY, sprite.getRegionWidth()*Scale,
+                sprite.getRegionHeight()*Scale), EntityType.PlayerBullet));
         return bullet;
     }
 
     public static Entity BuildFromGun(Vector3 EntityPosition, GunComponent gun)
     {
         Entity bullet = new Entity();
+        TextureRegion sprite = new TextureRegion(
+                new Texture(Gdx.files.internal("MightyShot.png")));
 
-        bullet.add(new TransformComponent(EntityPosition.x + gun.BulletOrigin.x,
-                EntityPosition.y + gun.BulletOrigin.y));
+        bullet.add(new TransformComponent(new Vector3(EntityPosition.x + gun.BulletOrigin.x,
+                EntityPosition.y + gun.BulletOrigin.y, 0.0f), new Vector2(Scale, Scale)));
 
         bullet.add(new MovementComponent(gun.BulletVelocity.cpy()));
 
-        bullet.add(new TextureComponent(new TextureRegion(
-                new Texture(Gdx.files.internal("MightyShot.png"))), new Vector2(1.0f, 1.0f)));
+        bullet.add(new TextureComponent(sprite, new Vector2(Scale, Scale)));
 
         bullet.add(new BoundsComponent(new Rectangle(EntityPosition.x + gun.BulletOrigin.x,
-                EntityPosition.y + gun.BulletOrigin.y, 20, 20), gun.BulletType));
+                EntityPosition.y + gun.BulletOrigin.y, sprite.getRegionWidth()*Scale,
+                sprite.getRegionHeight()*Scale), gun.BulletType));
 
         return bullet;
     }

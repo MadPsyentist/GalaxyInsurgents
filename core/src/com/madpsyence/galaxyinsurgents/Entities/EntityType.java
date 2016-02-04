@@ -5,5 +5,5 @@ package com.madpsyence.galaxyinsurgents.Entities;
  */
 public enum EntityType
 {
-    Empty, Player, Enemy, Background, PlayerBullet, EnemyBullet, Wall
+    Empty, Player, Enemy, Background, PlayerBullet, EnemyBullet, Wall, KillZone
 }
