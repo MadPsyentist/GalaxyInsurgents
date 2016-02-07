@@ -22,10 +22,10 @@ public class RenderSystem extends SortedIteratingSystem
     SpriteBatch batch;
     OrthographicCamera camera;
 
-    public RenderSystem(SpriteBatch batch)
+    public RenderSystem(SpriteBatch batch, int Priority)
     {
         super(Family.all(TransformComponent.class, TextureComponent.class).get(), new RenderComparator(),
-                CONST.SYSTEM_PRIORITY_RENDERER);
+                Priority);
 
         textureComponentMap = ComponentMapper.getFor(TextureComponent.class);
         transformComponentMap = ComponentMapper.getFor(TransformComponent.class);

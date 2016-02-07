@@ -7,6 +7,7 @@ import com.badlogic.ashley.signals.Listener;
 import com.badlogic.ashley.signals.Signal;
 import com.badlogic.ashley.systems.IteratingSystem;
 import com.madpsyence.galaxyinsurgents.CONST;
+import com.madpsyence.galaxyinsurgents.Events.CollisionEvent;
 import com.madpsyence.galaxyinsurgents.Events.InputEvents;
 import com.madpsyence.galaxyinsurgents.Components.PlayerComponent;
 import com.madpsyence.galaxyinsurgents.Components.MovementComponent;
@@ -22,12 +23,14 @@ public class DirectionalInputSystem extends IteratingSystem implements Listener<
     private ComponentMapper<MovementComponent> movementComponentMap;
     private ComponentMapper<PlayerComponent> playerComponentMap;
 
-    public DirectionalInputSystem()
+    public DirectionalInputSystem(Signal<String> inputSignal, int Priority)
     {
-        super(Family.all(MovementComponent.class, PlayerComponent.class).get(), CONST.SYSTEM_PRIORITY_INPUT + CONST.TERTIRY_SYSTEM);
+        super(Family.all(MovementComponent.class, PlayerComponent.class).get(), Priority);
 
         movementComponentMap = ComponentMapper.getFor(MovementComponent.class);
         playerComponentMap = ComponentMapper.getFor(PlayerComponent.class);
+
+        inputSignal.add(this);
     }
 
     @Override

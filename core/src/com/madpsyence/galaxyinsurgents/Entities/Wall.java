@@ -10,11 +10,14 @@ import com.madpsyence.galaxyinsurgents.Components.TransformComponent;
  */
 public class Wall
 {
-    public static Entity Build(float posX, float posY, float width, float height)
+    public static Entity Build(float posX, float posY, float width, float height, boolean isKillZone)
     {
         Entity entity = new Entity();
         Rectangle rect = new Rectangle(posX, posY, width, height);
-        entity.add(new BoundsComponent(rect, EntityType.Wall));
+        if(isKillZone)
+            entity.add(new BoundsComponent(rect, EntityType.KillZone));
+        else
+            entity.add(new BoundsComponent(rect, EntityType.Wall));
         entity.add(new TransformComponent(posX, posY));
 
         return entity;

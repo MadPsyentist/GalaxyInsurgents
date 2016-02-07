@@ -25,9 +25,9 @@ public class MovementClampSystem extends EntitySystem implements Listener<Collis
     private ImmutableArray<Entity> entities;
     private float movement;
 
-    public MovementClampSystem()
+    public MovementClampSystem(int Priority)
     {
-        this.priority = CONST.SYSTEM_PRIORITY_PHYSICS + CONST.TERTIRY_SYSTEM;
+        this.priority = Priority;
     }
 
     @Override

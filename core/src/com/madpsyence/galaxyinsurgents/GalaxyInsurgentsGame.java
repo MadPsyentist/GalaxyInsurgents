@@ -56,6 +56,8 @@ public class GalaxyInsurgentsGame extends Game
 	private Engine InitializeEngine()
 	{
 		Engine eng = new Engine();
+
+		// Add Entities to the engine
 		eng.addEntity(Player.Build(0.0f, -300.0f));
 
 		for(int j = 0; j < 5; j++)
@@ -70,34 +72,44 @@ public class GalaxyInsurgentsGame extends Game
 			if(i%2 == 0)
 				type = EnemyType.Tinny;
 		}
-		eng.addEntity(Wall.Build(-280, -319, 50, 640));
-		eng.addEntity(Wall.Build(230, -319, 50, 640));
+		eng.addEntity(Wall.Build(-280, -319, 50, 640, false));
+		eng.addEntity(Wall.Build(230, -319, 50, 640, false));
 
-		MovementClampSystem placeHolderSystem = new MovementClampSystem();
-		collisionEventSignal.add(placeHolderSystem);
-		eng.addSystem(placeHolderSystem);
-		eng.addSystem(new RenderSystem(new SpriteBatch()));
-        eng.addSystem(new MovementSystem());
+		// KillZones to mop up stray bullets
+		eng.addEntity(Wall.Build(-280, -400, 550, 50, true));
+		eng.addEntity(Wall.Build(-280, 400, 550, 50, true));
 
-		DirectionalInputSystem dirSys = new DirectionalInputSystem();
-		InputEventsSignal.add(dirSys);
-		eng.addSystem(dirSys);
+		// Create systems
+		DirectionalInputSystem dirIn = new DirectionalInputSystem(1);
+		EnemyMovementSystem eneMov = new EnemyMovementSystem(2);
+		ReloadGunsSystem reload = new ReloadGunsSystem(3);
+		FireGunSystem fire = new FireGunSystem(eng, 4);
+		PlayerFireSystem playFire = new PlayerFireSystem(5);
+		MovementSystem mov = new MovementSystem(6);
+		MoveBoundsSystem movBound = new MoveBoundsSystem(7);
+		CollisionSystem colisSys = new CollisionSystem(collisionEventSignal, 8);
+		MovementClampSystem movClamp = new MovementClampSystem(9);
+		RenderSystem render = new RenderSystem(new SpriteBatch(), 10);
+		DebugRender debugRend = new DebugRender(11);
 
-		EnemyMovementSystem enemMov = new EnemyMovementSystem();
-		collisionEventSignal.add(enemMov);
-		eng.addSystem(enemMov);
-		eng.addSystem(new CollisionSystem(collisionEventSignal));
-		eng.addSystem(new MoveBoundsSystem());
-		eng.addSystem(new FireGunSystem(eng));
-		eng.addSystem(new ReloadGunsSystem());
-		PlayerFireSystem pfs = new PlayerFireSystem();
-		InputEventsSignal.add(pfs);
-		eng.addSystem(pfs);
-		eng.addSystem(new DebugRender());
+		// Add listener systems to their respective Signals
+		collisionEventSignal.add(movClamp);
+		collisionEventSignal.add(eneMov);
+		InputEventsSignal.add(dirIn);
+		InputEventsSignal.add(playFire);
 
-        DirectionalInputSystem inSys = new DirectionalInputSystem();
-        InputEventsSignal.add(inSys);
-        eng.addSystem(inSys);
+		// add systems to the engine
+		eng.addSystem(dirIn);
+		eng.addSystem(eneMov);
+		eng.addSystem(reload);
+		eng.addSystem(fire);
+		eng.addSystem(playFire);
+		eng.addSystem(mov);
+		eng.addSystem(movBound);
+		eng.addSystem(colisSys);
+		eng.addSystem(movClamp);
+		eng.addSystem(render);
+		eng.addSystem(debugRend);
 
 		return eng;
 	}

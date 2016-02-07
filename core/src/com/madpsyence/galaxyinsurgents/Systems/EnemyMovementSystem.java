@@ -32,10 +32,10 @@ public class EnemyMovementSystem extends IteratingSystem implements Listener<Col
     private float dropDistance;
     private boolean drop;
 
-    public EnemyMovementSystem()
+    public EnemyMovementSystem(int Priority)
     {
         super(Family.all(TransformComponent.class, MovementComponent.class,
-                EnemyComponent.class).get(), CONST.SYSTEM_PRIORITY_MOVEMENT);
+                EnemyComponent.class).get(), Priority);
 
         transMap = ComponentMapper.getFor(TransformComponent.class);
         boundsMap = ComponentMapper.getFor(BoundsComponent.class);

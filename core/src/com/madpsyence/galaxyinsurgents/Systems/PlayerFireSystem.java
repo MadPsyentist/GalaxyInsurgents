@@ -19,10 +19,10 @@ public class PlayerFireSystem extends IteratingSystem implements Listener<String
     ComponentMapper<GunComponent> gunMap;
     boolean fire;
 
-    public PlayerFireSystem()
+    public PlayerFireSystem(int Priority)
     {
         super(Family.all(PlayerComponent.class, GunComponent.class).get(),
-                CONST.SYSTEM_PRIORITY_INPUT + CONST.TERTIRY_SYSTEM);
+                Priority);
         gunMap = ComponentMapper.getFor(GunComponent.class);
         fire = false;
     }

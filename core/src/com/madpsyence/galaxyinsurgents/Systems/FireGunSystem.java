@@ -19,9 +19,9 @@ public class FireGunSystem extends IteratingSystem
     private ComponentMapper<TransformComponent> posMap;
     private Engine engine;
 
-    public FireGunSystem(Engine engine)
+    public FireGunSystem(Engine engine, int Priority)
     {
-        super(Family.all(GunComponent.class, TransformComponent.class).get(), CONST.SYSTEM_PRIORITY_LOGIC);
+        super(Family.all(GunComponent.class, TransformComponent.class).get(), Priority);
         gunMap = ComponentMapper.getFor(GunComponent.class);
         posMap = ComponentMapper.getFor(TransformComponent.class);
         this.engine = engine;

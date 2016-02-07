@@ -16,9 +16,9 @@ public class ReloadGunsSystem extends IteratingSystem
 {
     private ComponentMapper<GunComponent> gunMap;
 
-    public ReloadGunsSystem()
+    public ReloadGunsSystem(int Priority)
     {
-        super(Family.all(GunComponent.class).get(), CONST.SYSTEM_PRIORITY_LOGIC);
+        super(Family.all(GunComponent.class).get(), Priority);
         gunMap = ComponentMapper.getFor(GunComponent.class);
     }
 

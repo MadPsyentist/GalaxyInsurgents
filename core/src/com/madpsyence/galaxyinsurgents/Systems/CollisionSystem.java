@@ -24,10 +24,10 @@ public class CollisionSystem extends EntitySystem
 
     private ImmutableArray<Entity> entities;
 
-    public CollisionSystem(Signal<CollisionEvent> CollisionEventSignal)
+    public CollisionSystem(Signal<CollisionEvent> CollisionEventSignal, int Priority)
     {
         this.CollisionEventSignal = CollisionEventSignal;
-        this.priority = CONST.SYSTEM_PRIORITY_PHYSICS;
+        this.priority = Priority;
     }
 
     public void addedToEngine(Engine engine)

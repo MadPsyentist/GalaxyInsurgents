@@ -16,9 +16,10 @@ public class MovementSystem extends IteratingSystem
 
     private ComponentMapper<MovementComponent> movementComponentMap;
     private ComponentMapper<TransformComponent> posComponentMap;
-    public MovementSystem()
+
+    public MovementSystem(int Priority)
     {
-        super(Family.all(MovementComponent.class, TransformComponent.class).get(), CONST.SYSTEM_PRIORITY_MOVEMENT);
+        super(Family.all(MovementComponent.class, TransformComponent.class).get(), Priority);
 
         movementComponentMap = ComponentMapper.getFor(MovementComponent.class);
         posComponentMap = ComponentMapper.getFor(TransformComponent.class);

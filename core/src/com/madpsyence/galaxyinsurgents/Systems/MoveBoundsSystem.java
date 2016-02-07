@@ -18,9 +18,9 @@ public class MoveBoundsSystem extends IteratingSystem
     ComponentMapper<TransformComponent> posMap;
     ComponentMapper<BoundsComponent> boundsMap;
 
-    public MoveBoundsSystem()
+    public MoveBoundsSystem(int Priority)
     {
-        super(Family.all(TransformComponent.class, MovementComponent.class, BoundsComponent.class).get(), CONST.SYSTEM_PRIORITY_PHYSICS + CONST.PRIMARY_SYSTEM);
+        super(Family.all(TransformComponent.class, MovementComponent.class, BoundsComponent.class).get(), Priority);
         posMap = ComponentMapper.getFor(TransformComponent.class);
         boundsMap = ComponentMapper.getFor(BoundsComponent.class);
     }
