@@ -2,7 +2,6 @@ package com.madpsyence.galaxyinsurgents;
 
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
-import com.badlogic.ashley.core.EntitySystem;
 import com.badlogic.ashley.signals.Signal;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
@@ -11,15 +10,16 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.madpsyence.galaxyinsurgents.Entities.*;
 import com.madpsyence.galaxyinsurgents.Events.CollisionEvent;
 import com.madpsyence.galaxyinsurgents.Input.KeyboardInputProcessor;
-import com.madpsyence.galaxyinsurgents.Systems.CollisionReportSystem;
 import com.madpsyence.galaxyinsurgents.Systems.CollisionSystem;
 import com.madpsyence.galaxyinsurgents.Systems.DebugRender;
 import com.madpsyence.galaxyinsurgents.Systems.DirectionalInputSystem;
 import com.madpsyence.galaxyinsurgents.Systems.EnemyMovementSystem;
+import com.madpsyence.galaxyinsurgents.Systems.EntityRemovalSystem;
 import com.madpsyence.galaxyinsurgents.Systems.FireGunSystem;
 import com.madpsyence.galaxyinsurgents.Systems.MoveBoundsSystem;
 import com.madpsyence.galaxyinsurgents.Systems.MovementClampSystem;
 import com.madpsyence.galaxyinsurgents.Systems.MovementSystem;
+import com.madpsyence.galaxyinsurgents.Systems.PlayerBulletCollisionSystem;
 import com.madpsyence.galaxyinsurgents.Systems.PlayerFireSystem;
 import com.madpsyence.galaxyinsurgents.Systems.ReloadGunsSystem;
 import com.madpsyence.galaxyinsurgents.Systems.RenderSystem;
@@ -27,9 +27,11 @@ import com.madpsyence.galaxyinsurgents.Systems.RenderSystem;
 public class GalaxyInsurgentsGame extends Game
 {
 	Engine engine;
+	EntityRemovalSystem eRemov;
 
     Signal<String> InputEventsSignal;
 	Signal<CollisionEvent> collisionEventSignal;
+	Signal<Entity> EntityRemovalSignal;
 
 	@Override
 	public void create ()
@@ -45,12 +47,14 @@ public class GalaxyInsurgentsGame extends Game
 		Gdx.gl.glClearColor(0.15f, 0.09f, 0.2f, 1.0f);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		engine.update(Gdx.graphics.getDeltaTime());
+		eRemov.process();
 	}
 
     private void InitializeEventSignals()
     {
         InputEventsSignal = new Signal<String>();
 		collisionEventSignal = new Signal<CollisionEvent>();
+		EntityRemovalSignal = new Signal<Entity>();
     }
 
 	private Engine InitializeEngine()
@@ -80,7 +84,7 @@ public class GalaxyInsurgentsGame extends Game
 		eng.addEntity(Wall.Build(-280, 400, 550, 50, true));
 
 		// Create systems
-		DirectionalInputSystem dirIn = new DirectionalInputSystem(1);
+		DirectionalInputSystem dirIn = new DirectionalInputSystem(InputEventsSignal, 1);
 		EnemyMovementSystem eneMov = new EnemyMovementSystem(2);
 		ReloadGunsSystem reload = new ReloadGunsSystem(3);
 		FireGunSystem fire = new FireGunSystem(eng, 4);
@@ -91,11 +95,13 @@ public class GalaxyInsurgentsGame extends Game
 		MovementClampSystem movClamp = new MovementClampSystem(9);
 		RenderSystem render = new RenderSystem(new SpriteBatch(), 10);
 		DebugRender debugRend = new DebugRender(11);
+		PlayerBulletCollisionSystem plyColSys = new PlayerBulletCollisionSystem(EntityRemovalSignal, collisionEventSignal, 9 );
+
+		eRemov = new EntityRemovalSystem(EntityRemovalSignal, eng);
 
 		// Add listener systems to their respective Signals
 		collisionEventSignal.add(movClamp);
 		collisionEventSignal.add(eneMov);
-		InputEventsSignal.add(dirIn);
 		InputEventsSignal.add(playFire);
 
 		// add systems to the engine
@@ -110,6 +116,7 @@ public class GalaxyInsurgentsGame extends Game
 		eng.addSystem(movClamp);
 		eng.addSystem(render);
 		eng.addSystem(debugRend);
+		eng.addSystem(plyColSys);
 
 		return eng;
 	}
