@@ -25,13 +25,16 @@ public class PlayerBulletCollisionSystem extends EntitySystem implements Listene
     private Engine engine;
 
     private Signal<Entity> EntityRemovalSignal;
+    private Signal<String> SoundSignal;
 
-    public PlayerBulletCollisionSystem(Signal<Entity> EntityRemovalSignal, Signal<CollisionEvent> collisionSignal, int Priority)
+    public PlayerBulletCollisionSystem(Signal<Entity> EntityRemovalSignal, Signal<String> SoundSignal,
+                                       Signal<CollisionEvent> collisionSignal, int Priority)
     {
         events = new ArrayList<CollisionEvent>();
         this.priority = Priority;
         collisionSignal.add(this);
         this.EntityRemovalSignal = EntityRemovalSignal;
+        this.SoundSignal = SoundSignal;
     }
 
     @Override

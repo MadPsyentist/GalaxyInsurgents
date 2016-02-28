@@ -23,6 +23,7 @@ import com.madpsyence.galaxyinsurgents.Systems.PlayerBulletCollisionSystem;
 import com.madpsyence.galaxyinsurgents.Systems.PlayerFireSystem;
 import com.madpsyence.galaxyinsurgents.Systems.ReloadGunsSystem;
 import com.madpsyence.galaxyinsurgents.Systems.RenderSystem;
+import com.madpsyence.galaxyinsurgents.Systems.SoundSystem;
 
 public class GalaxyInsurgentsGame extends Game
 {
@@ -32,6 +33,7 @@ public class GalaxyInsurgentsGame extends Game
     Signal<String> InputEventsSignal;
 	Signal<CollisionEvent> collisionEventSignal;
 	Signal<Entity> EntityRemovalSignal;
+	Signal<String> SoundSignal;
 
 	@Override
 	public void create ()
@@ -55,6 +57,7 @@ public class GalaxyInsurgentsGame extends Game
         InputEventsSignal = new Signal<String>();
 		collisionEventSignal = new Signal<CollisionEvent>();
 		EntityRemovalSignal = new Signal<Entity>();
+		SoundSignal = new Signal<String>();
     }
 
 	private Engine InitializeEngine()
@@ -87,15 +90,16 @@ public class GalaxyInsurgentsGame extends Game
 		DirectionalInputSystem dirIn = new DirectionalInputSystem(InputEventsSignal, 1);
 		EnemyMovementSystem eneMov = new EnemyMovementSystem(2);
 		ReloadGunsSystem reload = new ReloadGunsSystem(3);
-		FireGunSystem fire = new FireGunSystem(eng, 4);
+		FireGunSystem fire = new FireGunSystem(SoundSignal, eng, 4);
 		PlayerFireSystem playFire = new PlayerFireSystem(5);
 		MovementSystem mov = new MovementSystem(6);
 		MoveBoundsSystem movBound = new MoveBoundsSystem(7);
 		CollisionSystem colisSys = new CollisionSystem(collisionEventSignal, 8);
 		MovementClampSystem movClamp = new MovementClampSystem(9);
 		RenderSystem render = new RenderSystem(new SpriteBatch(), 10);
-		DebugRender debugRend = new DebugRender(11);
-		PlayerBulletCollisionSystem plyColSys = new PlayerBulletCollisionSystem(EntityRemovalSignal, collisionEventSignal, 9 );
+		SoundSystem sound = new SoundSystem(SoundSignal);
+		//DebugRender debugRend = new DebugRender(11);
+		PlayerBulletCollisionSystem plyColSys = new PlayerBulletCollisionSystem(EntityRemovalSignal, SoundSignal, collisionEventSignal, 9 );
 
 		eRemov = new EntityRemovalSystem(EntityRemovalSignal, eng);
 
@@ -115,8 +119,9 @@ public class GalaxyInsurgentsGame extends Game
 		eng.addSystem(colisSys);
 		eng.addSystem(movClamp);
 		eng.addSystem(render);
-		eng.addSystem(debugRend);
+		//eng.addSystem(debugRend);
 		eng.addSystem(plyColSys);
+		eng.addSystem(sound);
 
 		return eng;
 	}
