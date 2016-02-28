@@ -23,8 +23,8 @@ public class SoundSystem extends EntitySystem implements Listener<String>
     {
         SoundSignal.add(this);
         soundsToPlay = new ArrayList<String>();
-        shotSound = Gdx.audio.newSound(Gdx.files.internal("shoot.wav"));
-        hitSound = Gdx.audio.newSound(Gdx.files.internal("invaderkilled.wav"));
+        shotSound = Gdx.audio.newSound(Gdx.files.internal("fire.ogg"));
+        hitSound = Gdx.audio.newSound(Gdx.files.internal("hit.ogg"));
     }
 
     @Override
@@ -38,11 +38,16 @@ public class SoundSystem extends EntitySystem implements Listener<String>
                 playHit = true;
             else if (s == SoundEvents.Fire)
                 playShot = true;
+        soundsToPlay.clear();
 
         if(playHit)
+        {
             hitSound.play();
-        if(playShot);
-            hitSound.play();
+        }
+        if(playShot)
+        {
+            shotSound.play();
+        }
     }
 
     @Override

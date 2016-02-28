@@ -9,6 +9,7 @@ import com.badlogic.ashley.signals.Signal;
 import com.madpsyence.galaxyinsurgents.Components.BoundsComponent;
 import com.madpsyence.galaxyinsurgents.Entities.EntityType;
 import com.madpsyence.galaxyinsurgents.Events.CollisionEvent;
+import com.madpsyence.galaxyinsurgents.Events.SoundEvents;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,9 +56,16 @@ public class PlayerBulletCollisionSystem extends EntitySystem implements Listene
                 switch (bbObject.Type)
                 {
                     case Enemy:
-                    case KillZone:
+                    {
                         EntityRemovalSignal.dispatch(e.EntityB);
                         EntityRemovalSignal.dispatch(e.EntityA);
+                        SoundSignal.dispatch(SoundEvents.Hit);
+                    }
+                    case KillZone:
+                    {
+                        EntityRemovalSignal.dispatch(e.EntityB);
+                        EntityRemovalSignal.dispatch(e.EntityA);
+                    }
                 }
             }
         }

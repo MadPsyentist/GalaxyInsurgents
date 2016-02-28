@@ -28,6 +28,7 @@ public class FireGunSystem extends IteratingSystem
         gunMap = ComponentMapper.getFor(GunComponent.class);
         posMap = ComponentMapper.getFor(TransformComponent.class);
         this.engine = engine;
+        this.SoundSignal = SoundSignal;
     }
 
     @Override
