@@ -34,11 +34,15 @@ public class SoundSystem extends EntitySystem implements Listener<String>
         boolean playShot = false;
 
         for (String s: soundsToPlay)
+        {
             if (s == SoundEvents.Hit)
                 playHit = true;
             else if (s == SoundEvents.Fire)
                 playShot = true;
-        soundsToPlay.clear();
+
+            if(playHit && playShot)
+                break;
+        }
 
         if(playHit)
         {
@@ -48,6 +52,8 @@ public class SoundSystem extends EntitySystem implements Listener<String>
         {
             shotSound.play();
         }
+        soundsToPlay.clear();
+
     }
 
     @Override

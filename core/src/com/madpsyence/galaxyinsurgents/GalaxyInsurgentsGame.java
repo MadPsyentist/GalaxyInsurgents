@@ -13,6 +13,7 @@ import com.madpsyence.galaxyinsurgents.Input.KeyboardInputProcessor;
 import com.madpsyence.galaxyinsurgents.Systems.CollisionSystem;
 import com.madpsyence.galaxyinsurgents.Systems.DebugRender;
 import com.madpsyence.galaxyinsurgents.Systems.DirectionalInputSystem;
+import com.madpsyence.galaxyinsurgents.Systems.EnemyFireSystem;
 import com.madpsyence.galaxyinsurgents.Systems.EnemyMovementSystem;
 import com.madpsyence.galaxyinsurgents.Systems.EntityRemovalSystem;
 import com.madpsyence.galaxyinsurgents.Systems.FireGunSystem;
@@ -98,6 +99,7 @@ public class GalaxyInsurgentsGame extends Game
 		MovementClampSystem movClamp = new MovementClampSystem(9);
 		RenderSystem render = new RenderSystem(new SpriteBatch(), 10);
 		SoundSystem sound = new SoundSystem(SoundSignal);
+		EnemyFireSystem enFire = new EnemyFireSystem(5);
 		//DebugRender debugRend = new DebugRender(11);
 		PlayerBulletCollisionSystem plyColSys = new PlayerBulletCollisionSystem(EntityRemovalSignal, SoundSignal, collisionEventSignal, 9 );
 
@@ -122,6 +124,7 @@ public class GalaxyInsurgentsGame extends Game
 		//eng.addSystem(debugRend);
 		eng.addSystem(plyColSys);
 		eng.addSystem(sound);
+		eng.addSystem(enFire);
 
 		return eng;
 	}

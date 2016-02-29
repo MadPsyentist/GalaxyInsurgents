@@ -22,13 +22,11 @@ public class KeyboardInputProcessor implements InputProcessor
         if(keycode == Input.Keys.LEFT)
         {
             InputEventsSignal.dispatch(InputEvents.Move_Left);
-            System.out.println("Left pressed");
             return true;
         }
         if(keycode == Input.Keys.RIGHT)
         {
             InputEventsSignal.dispatch(InputEvents.Move_Right);
-            System.out.println("Right pressed");
             return true;
         }
         if(keycode == Input.Keys.SPACE)

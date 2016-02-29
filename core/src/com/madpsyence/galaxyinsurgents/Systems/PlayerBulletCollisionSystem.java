@@ -68,6 +68,7 @@ public class PlayerBulletCollisionSystem extends EntitySystem implements Listene
                     }
                 }
             }
+            events.clear();
         }
     }
 
